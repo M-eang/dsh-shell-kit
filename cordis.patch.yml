@@ -1,0 +1,21 @@
+# dsh-shell-kit 的 bundle patch。
+#
+# 顶层 YAML 数组，每个元素是一个 loader patch 条目：把本包的 host 半边挂到
+# loader 树上（name 是裸包名，经 profile 的 node_modules 解析）。
+# 浏览器半边不需要在这里声明：package.json 的 dsh.client（platform: web）加上
+# exports["./client"] 会让 dsh-client-modules 自动把 client.js 送进浏览器模块图。
+#
+# 模块级的开关不走这里，而是走配置（config.modules.<name>: false），
+# 这样一个包里可以只启用你想要的那几个功能；模块自己的单项配置放在顶层
+# （例如 config.captureStdio: false 让 logs 不再包 stdout/stderr）。
+#
+# 全部可配置项（都可省略；值只认布尔/数字，写错类型会记一条 warn 并按默认值处理）：
+#   modules.<name>: false    关掉某个模块，name ∈ logs / restart / hmr / doctor / profile / presets
+#   captureStdio: false      不给宿主 stdout/stderr 挂钩子（logs 只留自己写的那部分）
+#   pendingPollMs: 10000     「有插件操作在进行」的轮询间隔（毫秒，下限 3000）
+#
+# 重启模块另有一个环境变量开关（不是配置项）：DSH_SHELL_KIT_WINDOW_STATE=0 关掉
+# 「重启后恢复窗口状态」（默认开启；抓不到窗口时自动跳过，不影响重启本身）。
+- insert:
+    - id: shell-kit
+      name: dsh-shell-kit

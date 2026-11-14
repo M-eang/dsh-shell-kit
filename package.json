@@ -1,0 +1,56 @@
+{
+  "name": "dsh-shell-kit",
+  "version": "1.0.0",
+  "author": "M-eang",
+  "private": false,
+  "description": "DSH Shell Kit：DeepSeek Harness 的进程运维工具箱——一键重启、实时日志流、HMR 热更新、端口排查、profile 体检与预设管理。 · An operations toolkit for the DeepSeek Harness process: one-click restart, live log streaming, HMR, port diagnostics, profile audit and preset management.",
+  "type": "module",
+  "main": "index.js",
+  "bin": {
+    "dsh-shell-kit": "bin/dsh-shell-kit.mjs"
+  },
+  "scripts": {
+    "test": "node --test test/core.test.js test/loopback.test.js test/sse.test.js test/logs-stream.test.js test/hmr.test.js test/engine.test.js test/ports.test.js test/helper-staging.test.js test/profile-patch.test.js test/wmi.test.js test/window-state.test.js",
+    "check": "node --check index.js && node --check client.js && node --check bin/dsh-shell-kit.mjs && node --check lib/core.js && node --check lib/loopback.js && node --check lib/sse.js && node --check lib/host.js && node --check lib/profile-audit.js && node --check lib/modules/logs/index.js && node --check lib/modules/hmr/index.js && node --check lib/modules/restart/index.js && node --check lib/modules/restart/engine.js && node --check lib/modules/restart/helper.mjs && node --check lib/modules/restart/ports.js && node --check lib/modules/restart/window-state.mjs && node --check lib/modules/doctor/index.js && node --check lib/modules/profile/index.js && node --check lib/modules/profile/patch-text.js && node --check lib/modules/presets/index.js"
+  },
+  "exports": {
+    ".": "./index.js",
+    "./client": "./client.js",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "index.js",
+    "client.js",
+    "lib",
+    "bin",
+    "cordis.patch.yml",
+    "docs",
+    "README.md",
+    "NOTICE.md"
+  ],
+  "license": "MIT",
+  "engines": {
+    "node": ">=20"
+  },
+  "dsh": {
+    "displayName": "DSH Shell Kit",
+    "description": "进程运维工具箱：一键重启、日志流、HMR、端口排查、profile 体检、预设管理。",
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web",
+      "inject": [
+        "@deepseek-ai/dsh-client-ui-settings"
+      ]
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/M-eang/dsh-shell-kit.git"
+  },
+  "homepage": "https://github.com/M-eang/dsh-shell-kit#readme",
+  "bugs": {
+    "url": "https://github.com/M-eang/dsh-shell-kit/issues"
+  }
+}
